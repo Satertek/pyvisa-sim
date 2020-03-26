@@ -245,7 +245,10 @@ class Device(Component):
 
                 if response is not NoResponse:
                     self._output_buffer.extend(response)
-                    self._output_buffer.extend(eom)
+                    if query == queries[-1]:
+                        self._output_buffer.extend(eom)
+                    else:
+                        self._output_buffer.extend(self.delimiter)
 
         finally:
             self._input_buffer = bytearray()
